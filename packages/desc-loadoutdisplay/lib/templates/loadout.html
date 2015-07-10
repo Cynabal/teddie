@@ -16,7 +16,11 @@
 <template name="rack">
 <div class="rack">
 	<span class="rackName">{{name}}</span>
-	{{#each modules}}{{>module}}{{/each}}
+	{{#if filled modules}}
+		{{#each modules}}{{>module}}{{/each}}
+	{{else}}
+		<img class="moduleImage" style="border:none;" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+	{{/if}}
 </div>
 </template>
 
@@ -24,18 +28,22 @@
 {{#if filled modules}}
 <div class="rack small">
 	<span class="rackName">{{name}}</span>
-	{{#each modules}}{{>module}}{{/each}}
+	{{#if filled modules}}
+		{{#each modules}}{{>module}}{{/each}}
+	{{else}}
+		<img class="moduleImage" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+	{{/if}}
 </div>
 {{/if}}
 </template>
 
 <template name="module">
-<div class="module"><img class="module" src="http://image.eveonline.com/Type/{{typeID}}_64.png" title="{{typeName}}" alt="{{typeName}}"/>{{#if chargeID}}<img class="charge" src="http://image.eveonline.com/Type/{{chargeID}}_32.png" title="{{chargeName}}" alt="{{chargeName}}"/>{{/if}}{{#if quantity}}<span class="quantity">{{quantity}}</span>{{/if}}</div>
+<div class="module"><img class="moduleImage" src="http://image.eveonline.com/Type/{{typeID}}_64.png" title="{{typeName}}" alt="{{typeName}}"/>{{#if chargeID}}<img class="charge" src="http://image.eveonline.com/Type/{{chargeID}}_32.png" title="{{chargeName}}" alt="{{chargeName}}"/>{{/if}}{{#if quantity}}<span class="quantity">{{quantity}}</span>{{/if}}</div>
 </template>
 
 <template name="eft">
 <p>Click to select</p>
-<pre class="eft">[{{shipTypeName}}, MiG]{{#with loadout}}{{#each lows}}
+<pre class="eft">[{{shipTypeName}}, {{name}}]{{#with loadout}}{{#each lows}}
 {{>eftModule}}{{/each}}
 {{#each mids}}
 {{>eftModule}}{{/each}}
