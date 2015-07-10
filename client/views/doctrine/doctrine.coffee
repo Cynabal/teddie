@@ -66,11 +66,11 @@ Template.fit.events
 
 Template.fit.helpers
   difficultyLabelColor: ->
-    if @difficulty == 'high'
+    if @priority == 'high'
       'label-danger'
-    else if @difficulty == 'low'
+    else if @priority == 'low'
       'label-success'
-    else if @difficulty == 'medium'
+    else if @priority == 'medium'
       'label-warning'
     else
       'label-info'
@@ -78,7 +78,7 @@ Template.fit.helpers
   roleLabelColor: ->
     if @role == 'DPS'
       return 'label-danger'
-    else if @role == 'Tackle'
+    else if @role == 'Support'
       return 'label-warning'
     else
       return 'label-info'
