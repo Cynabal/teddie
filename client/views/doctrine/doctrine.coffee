@@ -1,0 +1,84 @@
+@SelectText = (text) ->
+    doc = document
+    if doc.body.createTextRange
+        range = document.body.createTextRange()
+        range.moveToElementText text
+        range.select();
+    else if window.getSelection
+        selection = window.getSelection()      
+        range = document.createRange()
+        range.selectNodeContents text
+        selection.removeAllRanges()
+        selection.addRange(range)
+
+Meteor.startup ->
+  @$('body').scrollspy {target: '#fit-nav'}
+
+Template.doctrine.rendered = ->
+  @$('#fit-nav').affix
+    offset:
+      top: this.$('#fit-nav').offset().top - 20
+
+  # anchor scrolling
+  hash = document.location.hash.substr(1);
+  if hash && !Template['fittings'].scrolled
+    scroller = ->
+      $("html, body").stop()
+
+    Meteor.setTimeout ->
+      elem = $('#'+hash)
+      if elem.length
+        scroller().scrollTop elem.offset().top
+        # Guard against scrolling again w/ reactive changes
+        Template['fittings'].scrolled = true
+    , 0
+
+Template.doctrine.destroyed = ->
+  delete Template.doctrine.scrolled;
+
+
+Template.doctrine.helpers
+  roles: ->
+    fitIDs = @fittings
+    fittings = _.sortBy Fittings.find({_id: $in: fitIDs}).fetch(), 'shipTypeName'
+    grouped = _.groupBy fittings, 'role'
+    result = []
+    _.each grouped, (value, key, list) ->
+      result.push {"role": key, "fits": value}
+
+    return _.sortBy result,'role'
+  AddFittingsSchema: ->
+    AddFittingsSchema
+  fromDoctrine: ->
+    return links: @links, doctrine: @_id
+
+
+Template.fit.events
+  'click .delete': ->
+    if confirm 'Are you sure?'
+      fitID = @_id
+      Fittings.remove fitID
+      slug = Router.current().params.slug
+      doctrine = Doctrines.findOne {slug: slug}
+      Doctrines.update doctrine._id,
+        $pull:
+          fittings: fitID
+
+Template.fit.helpers
+  difficultyLabelColor: ->
+    if @difficulty == 'high'
+      'label-danger'
+    else if @difficulty == 'low'
+      'label-success'
+    else if @difficulty == 'medium'
+      'label-warning'
+    else
+      'label-info'
+
+  roleLabelColor: ->
+    if @role == 'DPS'
+      return 'label-danger'
+    else if @role == 'Tackle'
+      return 'label-warning'
+    else
+      return 'label-info'
