@@ -5,7 +5,7 @@ Router.route '/',
       data: ->
         if !@ready
           return
-        Doctrines.find {}
+        Doctrines.find {}, {sort: slug: 1}
     SEO.set title: Meteor.App.NAME + ' - Doctrines'
   waitOn: ->
     Meteor.subscribe 'doctrines'
