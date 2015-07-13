@@ -11,17 +11,11 @@
         selection.removeAllRanges()
         selection.addRange(range)
 
-Meteor.startup ->
-  @$('body').scrollspy {target: '#fit-nav'}
 
 Template.doctrine.rendered = ->
-  @$('#fit-nav').affix
-    offset:
-      top: this.$('#fit-nav').offset().top - 20
-
   # anchor scrolling
   hash = document.location.hash.substr(1);
-  if hash && !Template['fittings'].scrolled
+  if hash && !Template.doctrine.scrolled
     scroller = ->
       $("html, body").stop()
 
@@ -30,7 +24,7 @@ Template.doctrine.rendered = ->
       if elem.length
         scroller().scrollTop elem.offset().top
         # Guard against scrolling again w/ reactive changes
-        Template['fittings'].scrolled = true
+        Template.doctrine.scrolled = true
     , 0
 
 Template.doctrine.destroyed = ->

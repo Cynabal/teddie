@@ -1,6 +1,6 @@
 @Doctrines = new Mongo.Collection 'doctrines'
 
-Doctrines.attachSchema new SimpleSchema
+BasicDoctrineSchema = new SimpleSchema
   name:
     type: String
     label: "Name"
@@ -9,16 +9,18 @@ Doctrines.attachSchema new SimpleSchema
     type: String
     label: "Slug"
     max: 100
-  links:
-    type: String
-    label: "Links"
-    allowedValues: ['none', 'kiting', 'armor', 'shield']
   description:
     type: String
     label: "Description"
     optional: true
     autoform:
       rows: 5
+
+AdvancedDoctrineSchema = new SimpleSchema
+  links:
+    type: String
+    label: "Links"
+    allowedValues: ['none', 'kiting', 'armor', 'shield']
   fittings:
     type: Array
     label: "Fittings"
@@ -27,6 +29,12 @@ Doctrines.attachSchema new SimpleSchema
       omit: true
   'fittings.$':
     type: String
+
+StoreDoctrineSchema = new SimpleSchema [BasicDoctrineSchema, AdvancedDoctrineSchema]
+
+@UpdateDoctrineSchema = new SimpleSchema [BasicDoctrineSchema]
+
+Doctrines.attachSchema StoreDoctrineSchema
 
 Doctrines.allow
   insert: ->
