@@ -15,6 +15,8 @@ descriptionSchema = new SimpleSchema
     type: String
     label: "Description"
     optional: true
+    autoform:
+      rows: 5
   priority:
     type: String
     label: "Priority"
@@ -25,41 +27,17 @@ descriptionSchema = new SimpleSchema
     label: "Count"
     optional: true
   tips:
-    type: Array,
+    type: String,
     label: "Tips"
-    optional: true
-  "tips.$": 
-    type: String
-    label: "Tip"
-    optional: true
+    optional: true,
+    autoform:
+      rows: 2
   fittingDoctor: 
-    type: Object
+    type: String
     label: "Fitting Doctor"
     optional: true
-  "fittingDoctor.cpu": 
-    type: Array
-    label: "CPU"
-    optional: true
-  "fittingDoctor.cpu.$": 
-    type: String
-    label: "Hint"
-    optional: true
-  "fittingDoctor.powergrid": 
-    type: Array
-    label: "Powergrid"
-    optional: true
-  "fittingDoctor.powergrid.$": 
-    type: String
-    label: "Hint"
-    optional: true
-  "fittingDoctor.else": 
-    type: Array
-    label: "Else"
-    optional: true
-  "fittingDoctor.else.$": 
-    type: String
-    label: "Hint"
-    optional: true
+    autoform:
+      rows: 2
 loadoutSchema = new SimpleSchema
   shipTypeID:
     type: Number

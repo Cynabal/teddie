@@ -98,11 +98,7 @@
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="info{{_id}}">
-					<p>
-					{{#ifEmpty description}}
-						<i>not available</i>
-					{{/ifEmpty}}
-					</p>
+					<p>{{#markdown}}{{#ifEmpty description}}*not available*{{/ifEmpty}}{{/markdown}}</p>
 					<p>
 						Priority: <span class="label {{difficultyLabelColor}}">{{#ifEmpty priority}}
 							unknown
@@ -120,11 +116,7 @@
 					{{/with}}
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stats{{_id}}">
-					<!--<div class="row">
-						<div class="col-sm-8 col-sm-offset-1">-->
-							{{>stats}}
-						<!--</div>		
-					</div>-->
+					{{>stats}}
 				</div>
 				<div role="tabpanel" class="tab-pane" id="tips{{_id}}">
 					{{>tips}}	
@@ -196,58 +188,13 @@
 </template>
 
 <template name="tips">
-{{#if tips}}
-	<ul>
-	{{#each tips}}
-		<li>
-			{{this}}
-		</li>
-	{{/each}}
-	</ul>
-{{else}}
-	<p><i>not available</i></p>
-{{/if}}	 
+{{#markdown}}{{#ifEmpty tips}}*not available*{{/ifEmpty}}{{/markdown}}	 
 </template>
 
 <template name="fittingDoctor">
-{{#if cpu}}
-<h4><img src="img/cpu.png" class="statsIcon"> CPU</h4>
-	<ul>
-	{{#each cpu}}
-		<li>
-			{{this}}
-		</li>
-	{{/each}}
-	</ul>
-{{/if}}
-
-{{#if powergrid}}
-<h4><img src="img/pg.png" class="statsIcon"> Powergrid</h4>
-	<ul>
-	{{#each powergrid}}
-		<li>
-			{{this}}
-		</li>
-	{{/each}}
-	</ul>
-{{/if}}
-
-{{#if else}}
-<h4>Other</h4>
-	<ul>
-	{{#each else}}
-		<li>
-			{{this}}
-		</li>
-	{{/each}}
-	</ul>
-{{/if}}
+{{#markdown}}{{#ifEmpty fittingDoctor}}*not available*{{/ifEmpty}}{{/markdown}}	 
 </template>
 
 <template name="ifEmpty">
-	{{#if this}}
-		{{this}}
-	{{else}}
-		{{> Template.contentBlock}}
-	{{/if}}
+	{{#if this}}{{this}}{{else}}{{> Template.contentBlock}}{{/if}}
 </template>
