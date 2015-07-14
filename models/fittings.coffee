@@ -7,8 +7,8 @@ mandatoryDescriptionSchema = new SimpleSchema
     label: "Name"
   role:
     type: String
-    max: 50
     label: "Role"
+    allowedValues: ["DPS", "Logi", "Support"]
 
 descriptionSchema = new SimpleSchema
   description:

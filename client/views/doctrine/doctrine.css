@@ -15,31 +15,31 @@ body {
 
 
 /* Navigation */
-#fit-nav li a {
+.fit-nav li a {
 	padding: 2px 15px;
 }
 
-#fit-nav li.role > a {
+.fit-nav li.role > a {
 	font-size: large;
 }
 
-#fit-nav li.role > a i {
+.fit-nav li.role > a i {
 	visibility:hidden;
 }
 
-#fit-nav li.role.active > a i {
+.fit-nav li.role.active > a i {
 	visibility: visible;
 }
 
-#fit-nav li.fit {
+.fit-nav li.fit {
 	margin-left: 15px;
 }
 
-#fit-nav li.fit > a i {
+.fit-nav li.fit > a i {
 	visibility:hidden;
 }
 
-#fit-nav li.fit.active > a i {
+.fit-nav li.fit.active > a i {
 	visibility: visible;
 }
 
