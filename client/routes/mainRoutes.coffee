@@ -1,3 +1,9 @@
+split = window.location.hostname.split '.'
+if split[1] == 'teddie' and split[2] == 'zap' and split[3] == 'de' and split[4] == 'com'
+  Session.set('subdomain',split[0])
+else
+  Session.set('subdomain','eon')
+
 Router.route '/',
   name: 'doctrines'
   action: ->
@@ -8,7 +14,7 @@ Router.route '/',
         Doctrines.find {}, {sort: slug: 1}
     SEO.set title: Meteor.App.NAME + ' - Doctrines'
   waitOn: ->
-    Meteor.subscribe 'doctrines'
+    Meteor.subscribe 'doctrines', Session.get('subdomain')
   fastRender: true
 
 Router.route '/:slug',
@@ -23,7 +29,7 @@ Router.route '/:slug',
         if doctrine
           return doctrine
   waitOn: ->
-    [Meteor.subscribe('doctrines'), Meteor.subscribe('fittings')]
+    [Meteor.subscribe('doctrines', Session.get('subdomain')), Meteor.subscribe('fittings')]
 
 Router.route 'editFitting/:_id',
   name: 'editFitting'
@@ -34,7 +40,7 @@ Router.route 'editFitting/:_id',
           return
         Fittings.findOne _id: @params._id
   waitOn: ->
-    [Meteor.subscribe('doctrines'), Meteor.subscribe('fittings')]
+    [Meteor.subscribe('doctrines', Session.get('subdomain')), Meteor.subscribe('fittings')]
 
 Router.route 'editDoctrine/:_id',
   name: 'editDoctrine'
@@ -45,4 +51,4 @@ Router.route 'editDoctrine/:_id',
           return
         Doctrines.findOne _id: @params._id
   waitOn: ->
-    [Meteor.subscribe('doctrines')]
+    [Meteor.subscribe('doctrines',Session.get('subdomain'))]
