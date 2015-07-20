@@ -7,11 +7,7 @@ else
 Router.route '/',
   name: 'doctrines'
   action: ->
-    @render 'doctrines',
-      data: ->
-        if !@ready
-          return
-        Doctrines.find {}, {sort: slug: 1}
+    @render 'doctrines'
     SEO.set title: Meteor.App.NAME + ' - Doctrines'
   waitOn: ->
     Meteor.subscribe 'doctrines', Session.get('subdomain')

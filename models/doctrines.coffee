@@ -9,6 +9,10 @@ BasicDoctrineSchema = new SimpleSchema
     type: String
     label: "Slug"
     max: 100
+  category:
+    type: "String"
+    label: "Category"
+    max: 100
   group:
     type: String
     label: "Group"
