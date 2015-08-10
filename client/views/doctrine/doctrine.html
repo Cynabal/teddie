@@ -130,6 +130,7 @@
 				</div>
 				<div role="tabpanel" class="tab-pane" id="eft{{_id}}">
 					{{>eft}}
+					<pre class="eft">{{>dna}}</pre>
 				</div>
 			</div>
 		</div>
@@ -201,4 +202,8 @@
 
 <template name="ifEmpty">
 	{{#if this}}{{this}}{{else}}{{> Template.contentBlock}}{{/if}}
+</template>
+
+<template name="dna">
+{{shipTypeID}}{{#with loadout}}{{#each subs}}:{{typeID}}{{/each}}{{#each highs}}:{{typeID}};1{{/each}}{{#each mids}}:{{typeID}};1{{/each}}{{#each lows}}:{{typeID}};1{{/each}}{{#each rigs}}:{{typeID}};1{{/each}}{{#each drones}}:{{typeID}};{{quantity}}{{/each}}{{#each charges}}:{{typeID}};{{quantity}}{{/each}}{{/with}}
 </template>
