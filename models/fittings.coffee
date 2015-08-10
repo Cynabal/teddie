@@ -8,7 +8,6 @@ mandatoryDescriptionSchema = new SimpleSchema
   role:
     type: String
     label: "Role"
-    allowedValues: ["DPS", "Logi", "Support"]
 
 descriptionSchema = new SimpleSchema
   description:
@@ -29,10 +28,10 @@ descriptionSchema = new SimpleSchema
   tips:
     type: String,
     label: "Tips"
-    optional: true,
+    optional: true
     autoform:
       rows: 2
-  fittingDoctor: 
+  fittingDoctor:
     type: String
     label: "Fitting Doctor"
     optional: true
